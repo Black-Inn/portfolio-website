@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Black-Inn  | Blockbench & Minecraft Portfolio</title>
+<link rel="icon" type="image/x-icon" href="img/logo.ico">
+  <meta name="description" content="Black Inn .Ltd - Portfolio." />
+  <style>
+    :root {
+      --bg: #0f1226;
+      --bg-soft: #171a35;
+      --panel: #1f2347;
+      --panel-2: #2a3161;
+      --text: #f4f7ff;
+      --muted: #b9c3ff;
+      --accent: #ff8fab;
+      --accent-2: #7bdff2;
+      --accent-3: #baffc9;
+      --accent-4: #ffd166;
+      --danger: #ff6b6b;
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.28);
+      --radius: 22px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,143,171,.18), transparent 26%),
+        radial-gradient(circle at top right, rgba(123,223,242,.14), transparent 24%),
+        radial-gradient(circle at bottom center, rgba(255,209,102,.12), transparent 28%),
+        linear-gradient(180deg, #0b0e20 0%, #10142d 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button, input { font: inherit; }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(14px);
+      background: rgba(11, 14, 32, .72);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 76px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      color: #111;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: .98rem;
+    }
+
+    .brand-copy span {
+      display: block;
+      color: var(--muted);
+      font-size: .82rem;
+      margin-top: 2px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 72px 0 42px;
+    }
+
+    .hero-card {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: auto -80px -80px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(186,255,201,.2), transparent 70%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .88rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      line-height: .98;
+      letter-spacing: -.04em;
+    }
+
+    .hero h1 span {
+      display: block;
+      background: linear-gradient(90deg, var(--accent-4), var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text {
+      color: var(--muted);
+      font-size: 1.04rem;
+      line-height: 1.75;
+      max-width: 62ch;
+      margin: 18px 0 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .button,
+    .ghost-button,
+    .social-link,
+    .filter,
+    .chip {
+      border: 1px solid var(--border);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+    }
+
+    .button,
+    .ghost-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 14px;
+      font-weight: 700;
+    }
+
+    .button {
+      background: linear-gradient(135deg, var(--accent), var(--accent-4));
+      color: #1c1830;
+    }
+
+    .ghost-button {
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+    }
+
+    .button:hover,
+    .ghost-button:hover,
+    .social-link:hover,
+    .filter:hover,
+    .chip:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    .hero-side {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .avatar-card {
+      border-radius: 20px;
+      min-height: 330px;
+      border: 1px dashed rgba(255,255,255,.22);
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(123,223,242,.18), rgba(255,143,171,.16)),
+        rgba(255,255,255,.04);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .avatar-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    .avatar-placeholder {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 24ch;
+    }
+
+    .socials {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .social-link {
+      min-height: 58px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 28px 0 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2.3rem);
+      letter-spacing: -.03em;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 62ch;
+      line-height: 1.7;
+      margin: 8px 0 0;
+    }
+
+    .about-grid,
+    .feature-grid,
+    .contact-grid,
+    .timeline,
+    .faq-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .about-grid {
+      grid-template-columns: 1.1fr .9fr;
+    }
+
+    .about-copy,
+    .mini-stack,
+    .feature-card,
+    .contact-card,
+    .faq-card,
+    .timeline-card,
+    .commission-card,
+    .gallery-shell,
+    .testimonials {
+      padding: 24px;
+    }
+
+    .about-copy p,
+    .mini-stack p,
+    .feature-card p,
+    .contact-card p,
+    .faq-card p,
+    .timeline-card p,
+    .commission-card p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .chip-row,
+    .filter-row,
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip,
+    .filter {
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .filter.active {
+      background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+      color: #122135;
+      border-color: transparent;
+    }
+
+    .mini-stack {
+      display: grid;
+      align-content: start;
+      gap: 16px;
+    }
+
+    .mini-stack-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+    }
+
+    .mini-item span { color: var(--muted); }
+    .mini-item strong { font-size: .98rem; }
+
+    .feature-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,.05);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .feature-card h3,
+    .faq-card h3,
+    .contact-card h3,
+    .timeline-card h3,
+    .commission-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.06rem;
+    }
+
+    .gallery-shell {
+      display: grid;
+      gap: 18px;
+    }
+
+    .gallery-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .searchbox {
+      width: min(320px, 100%);
+      min-height: 48px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0 14px;
+      outline: none;
+    }
+
+    .searchbox::placeholder { color: #c6ceff99; }
+
+    .gallery-count {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .gallery-item {
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .gallery-item:hover {
+      border-color: rgba(255,255,255,.24);
+      transform: translateY(-3px);
+    }
+
+    .gallery-thumb {
+      aspect-ratio: 1 / 1;
+      background:
+        linear-gradient(135deg, rgba(255,143,171,.16), rgba(123,223,242,.16)),
+        rgba(255,255,255,.04);
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+
+    .thumb-placeholder {
+      text-align: center;
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.6;
+      max-width: 18ch;
+    }
+
+    .gallery-meta {
+      padding: 14px 14px 16px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .gallery-meta h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .gallery-meta p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    .tag-row span {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-size: .78rem;
+      border: 1px solid var(--border);
+    }
+
+    .timeline {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .timeline-card {
+      background: rgba(255,255,255,.05);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .timeline-step {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+      color: #10212b;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .quote {
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      padding: 20px;
+    }
+
+    .quote p {
+      margin: 0 0 14px;
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    .quote span {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,.05);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .contact-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+    }
+
+    .contact-line span {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .commission-card {
+      background: linear-gradient(135deg, rgba(255,209,102,.12), rgba(255,143,171,.09));
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .faq-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .faq-card {
+      background: rgba(255,255,255,.05);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .footer {
+      padding: 30px 0 46px;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 22px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(5, 7, 16, .78);
+      backdrop-filter: blur(10px);
+      display: none;
+      padding: 20px;
+    }
+
+    .modal.open {
+      display: grid;
+      place-items: center;
+    }
+
+    .modal-card {
+      width: min(900px, 100%);
+      background: #141936;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+    }
+
+    .modal-media {
+      min-height: 420px;
+      background: linear-gradient(135deg, rgba(123,223,242,.18), rgba(255,143,171,.18));
+      padding: 20px;
+      display: grid;
+      place-items: center;
+    }
+
+    .modal-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 18px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .modal-placeholder {
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.8;
+      max-width: 24ch;
+    }
+
+    .modal-copy {
+      padding: 24px;
+      display: grid;
+      align-content: start;
+      gap: 14px;
+    }
+
+    .modal-copy h3 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .modal-copy p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .modal-close {
+      min-height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+      width: fit-content;
+      padding: 0 16px;
+    }
+
+    .empty-state {
+      padding: 22px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.04);
+      border: 1px dashed rgba(255,255,255,.22);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 1080px) {
+      .feature-grid,
+      .timeline,
+      .testimonials,
+      .faq-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 900px) {
+      .hero-card,
+      .about-grid,
+      .contact-grid,
+      .modal-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .socials { grid-template-columns: 1fr 1fr; }
+      .topbar-inner { align-items: flex-start; padding: 14px 0; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(var(--max), calc(100% - 20px)); }
+      .hero-main,
+      .hero-side,
+      .about-copy,
+      .mini-stack,
+      .feature-card,
+      .contact-card,
+      .faq-card,
+      .timeline-card,
+      .commission-card,
+      .gallery-shell,
+      .testimonials { padding: 18px; }
+      .feature-grid,
+      .timeline,
+      .testimonials,
+      .faq-grid,
+      .socials { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .nav { gap: 10px 14px; }
+      .section-head { align-items: start; }
+      .gallery-toolbar { align-items: stretch; }
+      .searchbox { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="brand" href="#home" aria-label="Go to top">
+      
+      <div class="brand-badge">
+        <img src="img/logo.png" alt="BIL">
+      </div>
+
+      <div class="brand-copy">
+        <strong>Black-Inn</strong>
+        <span>Blockbench artist · Minecraft assets</span>
+      </div>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-card">
+        <div class="panel hero-main">
+          <div class="eyebrow">Custom models • resource-pack friendly • portfolio ready</div>
+          <h1>Make your world <span>yours.</span></h1>
+          <p class="hero-text">
+            Hi! Welcome to our portfolio. Here you can see our past passion projects, commissions and customer reviews. If you'd like something made custom please don't hesitate to contact us through our socials.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button" href="#work">See our work</a>
+            <a class="ghost-button" href="#contact">Commission info</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>290+</strong>
+              <span>Models and props</span>
+            </div>
+            <div class="stat">
+              <strong>All styles</strong>
+              <span>Vanilla, Medieval, Sci-fi, Modern, and many more!</span>
+            </div>
+            <div class="stat">
+              <strong>Fast setup</strong>
+              <span>Easy to edit and update later</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="panel hero-side">
+          <div class="avatar-card">
+            <!-- Replace this entire block with your own image -->
+            <!-- Example: <img src="images/profile-preview.jpg" alt="Your profile art"> -->
+            <img src="img/hero.png">
+          </div>
+
+          <div class="socials">
+            <a class="social-link" href="https://github.com/Black-Inn" target="_blank" rel="noopener">GitHub</a>
+            <a class="social-link" href="https://discord.com/users/881925197786144830" target="_blank" rel="noopener">Discord</a>
+            <a class="social-link" href="https://x.com/BlackInn_" target="_blank" rel="noopener">X / Twitter</a>
+            <a class="social-link" href="https://www.ko-fi.com/black_inn" target="_blank" rel="noopener">Ko-fi</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>About us</h2>
+            <p class="section-intro">
+            </p>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <article class="panel about-copy">
+            <p>
+              We're the <strong>Black-Inn</strong> team. We create  assets for Minecraft Java/Bedrock in Blockbench, from creatures and props to furniture packs and themed item sets. Our focus are clean shapes, 1:1 product as the customer's vision, optimized presentation, and visuals that feel good in-game.
+            </p>
+            <p style="margin-top:14px;">
+              Usually all we need to get started on your Project/Comission are a couple of references and as for the payment that can always be negociated. We believe a good product deserves a fair price, that way everyone is happy.
+
+            </p>
+            <div class="chip-row" style="margin-top:18px;">
+              <span class="chip">Blockbench</span>
+              <span class="chip">Minecraft props</span>
+              <span class="chip">Mobs and creatures</span>
+              <span class="chip">Furniture packs</span>
+              <span class="chip">Custom weapons</span>
+            </div>
+          </article>
+
+          <aside class="panel mini-stack">
+            <div>
+              <h3 style="margin:0 0 10px;">At a glance</h3>
+              <p>We're comfortable with those but we like challanges.</p>
+            </div>
+            <div class="mini-stack-list">
+              <div class="mini-item"><strong>Preferred style</strong><span>Medieval / Fantasy / Vanilla+</span></div>
+              <div class="mini-item"><strong>Texture sizes</strong><span>16x · 32x</span></div>
+              <div class="mini-item"><strong>Delivery options</strong><span>PNG previews · Model packs</span></div>
+              <div class="mini-item"><strong>Status</strong><span>Open for commissions</span></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>What we make</h2>
+            <p class="section-intro">Those are some model categories we made in the past.</p>
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card panel">
+            <h3>Mob concepts</h3>
+            <p>Fantasy creatures, pets, Statues, and custom NPCs .</p>
+          </article>
+          <article class="feature-card panel">
+            <h3>Furniture sets</h3>
+            <p>Cozy, Modern, Vanilla-style, Medieval and even Sci-Fi or themed furniture collections for interiors and builds.</p>
+          </article>
+          <article class="feature-card panel">
+            <h3>Weapons and items</h3>
+            <p>Swords, bows, staffs, axes, hammers, and packs with a shared style.</p>
+          </article>
+          <article class="feature-card panel">
+            <h3>Supporting models</h3>
+            <p>Things like chains, panting frames, signs and everything of this sort.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Featured work</h2>
+            <p class="section-intro">
+            </p>
+          </div>
+        </div>
+
+        <div class="panel gallery-shell">
+          <div class="gallery-toolbar">
+            <div class="filter-row" id="filters" aria-label="Gallery filters"></div>
+            <input id="searchInput" class="searchbox" type="search" placeholder="Search models, packs, styles..." aria-label="Search gallery" />
+          </div>
+
+          <div class="gallery-count" id="galleryCount">Loading items...</div>
+          <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>How commissions work</h2>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-card panel">
+            <div class="timeline-step">1</div>
+            <h3>Send us your idea</h3>
+            <p>Describe the model, style, theme, references, and where it will be used.</p>
+          </article>
+          <article class="timeline-card panel">
+            <div class="timeline-step">2</div>
+            <h3>Review concept</h3>
+            <p>We make a rough sketch, do adjustments if the customer wishes, polish the model, optimize it.</p>
+          </article>
+          <article class="timeline-card panel">
+            <div class="timeline-step">3</div>
+            <h3>Receive final files</h3>
+            <p>You get finished assets, preview images, and room for agreed revisions if needed.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="testimonials">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Client notes</h2>
+          </div>
+        </div>
+
+        <div class="testimonials">
+          <article class="quote panel">
+            <p>“This is a new website so i cant put any customer references yet. Hopefully you'll be my next client :)”</p>
+            <span>Placeholder client</span>
+          </article>
+          <article class="quote panel">
+            <p>“Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id.”</p>
+            <span>Placeholder client</span>
+          </article>
+          <article class="quote panel">
+            <p>“Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id.”</p>
+            <span>Placeholder client</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Contact and links</h2>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <article class="contact-card panel">
+            <h3>Find us online</h3>
+            <div class="contact-list">
+              <a class="contact-line" href="mailto:xav101.rl@proton.me">
+                <strong>Email</strong>
+                <span>black-inn-ltd11@proton.me</span>
+              </a>
+              <a class="contact-line" href="https://github.com/Black-Inn" target="_blank" rel="noopener">
+                <strong>GitHub</strong>
+                <span>@Black-Inn</span>
+              </a>
+              <a class="contact-line" href="https://discord.com/users/881925197786144830" target="_blank" rel="noopener">
+                <strong>Discord</strong>
+                <span>@Black_inn</span>
+              </a>
+              <a class="contact-line" href="https://ko-fi.com/black_inn" target="_blank" rel="noopener">
+                <strong>Ko-fi</strong>
+                <span>@Black-Inn</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="commission-card panel">
+            <h3>Commission notes</h3>
+            <p>
+              Commission prices are always negociated upon. Prices usually vary depending on the complexity of the desired product, its scale, if the project is ongoing, if maintenance is needed in the future and many more things.
+            </p>
+            <div class="chip-row" style="margin-top:18px;">
+              <span class="chip">Reply time: 1–4 Hrs</span>
+              <span class="chip">Delivery time: 4-8 Hrs</span>
+              <span class="chip">Free Revisions: 2</span>
+            </div>
+            <div class="hero-actions" style="margin-top:18px; margin-bottom:0;">
+              <a class="button" href="mailto:xav101.rl@proton.me?subject=Commission%20Inquiry">Start a project</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>FAQ</h2>
+          </div>
+        </div>
+
+        <div class="faq-grid">
+          <article class="faq-card panel">
+            <h3>Can I request a custom set?</h3>
+            <p>Absolutely. You can ask for a fully themed pack, matching variants, or one-off props.</p>
+          </article>
+          <article class="faq-card panel">
+            <h3>Do you work from references?</h3>
+            <p>Yes. Moodboards, screenshots, sketches, and style samples all help a lot.</p>
+          </article>
+          <article class="faq-card panel">
+            <h3>How big is your team?</h3>
+            <p>For the moment, we're a small 3-Man team. Although we're looking to join a studio and long-term projects.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Black-Inn · All rights reserved · Minecraft / Blockbench Portfolio.</span>
+    </div>
+  </footer>
+
+  <div class="modal" id="previewModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-grid">
+        <div class="modal-media" id="modalMedia"></div>
+        <div class="modal-copy">
+          <button class="modal-close" id="closeModal" type="button">Close</button>
+          <h3 id="modalTitle">Project title</h3>
+          <p id="modalDesc">Project description</p>
+          <div class="tag-row" id="modalTags"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const portfolioItems = [
+      {
+        title: "Ice Creatures Pack",
+        category: "Mobs",
+        tags: ["Fantasy", "Ice", "Boss"],
+        description: "A small pack of two mobs meant to go in a fantasy world made of ice. Inspired from various games and stories.",
+        image: "img/1.jpg",
+      },
+      {
+        title: "Vikings NPC Pack",
+        category: "Mobs",
+        tags: ["Fantasy", "Viking", "NPCs"],
+        description: "A  pack of a couple npcs for a fantasy norse world. Inspired from cartoon series, stories and legends.",
+        image: "img/2.jpg",
+      },
+      {
+        title: "Magician's Pack",
+        category: "Mobs",
+        tags: ["Fantasy", "Magic", "NPC", "Set"],
+        description: "A full set which contains an NPC model, a wizard table, decorations and maybe a little more? I guess you will have to find out :)",
+        image: "img/3.jpg",
+      },      
+      {
+        title: "Ice Expansion Pack",
+        category: "Mobs",
+        tags: ["Fantasy", "Ice", "Boss", "NPC", "Environment"],
+        description: "A small expansion pack of the Ice Creatures Pack. Contains a new quest-giving NPC, environment enhancing elements and a new mob",
+        image: "img/4.jpg",
+      },  
+      {
+        title: "The Nomad Pack",
+        category: "Objects",
+        tags: ["Fantasy", "Objects", "Environment"],
+        description: "A pack meant to make your minecraft experience feel as if you're living like your favorite fantasy characters.",
+        image: "img/5.jpg",
+      }, 
+      {
+        title: "Deep-sea Pack",
+        category: "Objects",
+        tags: ["Modern", "Objects", "Accessories"],
+        description: "A small pack that includes scuba goggles, oxygen tanks, and more! Happy exploring :P Who knows what the dark seas hide?.",
+        image: "img/6.jpg",
+      }, 
+      {
+        title: "Flowers Pack",
+        category: "Environment",
+        tags: ["Foliage", "Flowers", "Environment"],
+        description: "A few flowers to brighten up your day! <3.",
+        image: "img/7.jpg",
+      }, 
+      {
+        title: "Blacksmith Pack",
+        category: "Objects",
+        tags: ["Fantasy", "Swords", "Objects"],
+        description: "Ever thought how life as a village blacksmith would feel like? Look no further.",
+        image: "img/8.jpg",
+      }, 
+      {
+        title: "Super-Spy Pack",
+        category: "Objects",
+        tags: ["Modern", "Accessories"],
+        description: "How do you feel about being the new super-spy in town?.",
+        image: "img/9.jpg",
+      }, 
+      {
+        title: "Kingdom Builder Pack",
+        category: "Objects",
+        tags: ["Fantasy", "Objects", "Statue", "Lights"],
+        description: "A little something to help you unleash the creative beast inside you.",
+        image: "img/10.jpg",
+      }, 
+      {
+        title: "The super-weapons Pack",
+        category: "Weapons",
+        tags: ["Fantasy", "Objects", "Weapons", "Swords"],
+        description: "Here, you might need those on your journey.",
+        image: "img/11.jpg",
+      }, 
+    ];
+
+    const filtersEl = document.getElementById("filters");
+    const galleryGrid = document.getElementById("galleryGrid");
+    const galleryCount = document.getElementById("galleryCount");
+    const searchInput = document.getElementById("searchInput");
+    const modal = document.getElementById("previewModal");
+    const modalMedia = document.getElementById("modalMedia");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalTags = document.getElementById("modalTags");
+    const closeModal = document.getElementById("closeModal");
+
+    let activeFilter = "All";
+    let searchTerm = "";
+
+    const categories = ["All", ...new Set(portfolioItems.map(item => item.category))];
+
+    function buildFilters() {
+      filtersEl.innerHTML = "";
+      categories.forEach(category => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "filter" + (category === activeFilter ? " active" : "");
+        button.textContent = category;
+        button.addEventListener("click", () => {
+          activeFilter = category;
+          buildFilters();
+          renderGallery();
+        });
+        filtersEl.appendChild(button);
+      });
+    }
+
+    function itemMatches(item) {
+      const inCategory = activeFilter === "All" || item.category === activeFilter;
+      const haystack = [item.title, item.category, item.description, ...(item.tags || [])].join(" ").toLowerCase();
+      const inSearch = haystack.includes(searchTerm.toLowerCase());
+      return inCategory && inSearch;
+    }
+
+    function renderGallery() {
+      const visibleItems = portfolioItems.filter(itemMatches);
+      galleryGrid.innerHTML = "";
+      galleryCount.textContent = `${visibleItems.length} item${visibleItems.length === 1 ? "" : "s"} shown`;
+
+      if (!visibleItems.length) {
+        galleryGrid.innerHTML = '<div class="empty-state">No items match that search yet. Try another keyword or add more cards to the portfolioItems array.</div>';
+        return;
+      }
+
+      visibleItems.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "gallery-item";
+        card.tabIndex = 0;
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `Open preview for ${item.title}`);
+
+        const tags = (item.tags || []).slice(0, 3).map(tag => `<span>${tag}</span>`).join("");
+        const media = item.image
+          ? `<div class="gallery-thumb"><img src="${item.image}" alt="${item.title}"></div>`
+          : `<div class="gallery-thumb"><div class="thumb-placeholder">Add your own preview image here for<br><strong>${item.title}</strong></div></div>`;
+
+        card.innerHTML = `
+          ${media}
+          <div class="gallery-meta">
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            <div class="tag-row">${tags}</div>
+          </div>
+        `;
+
+        const open = () => openModal(item);
+        card.addEventListener("click", open);
+        card.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            open();
+          }
+        });
+
+        galleryGrid.appendChild(card);
+      });
+    }
+
+    function openModal(item) {
+      modalTitle.textContent = item.title;
+      modalDesc.textContent = item.description;
+      modalTags.innerHTML = (item.tags || []).map(tag => `<span>${tag}</span>`).join("");
+
+      modalMedia.innerHTML = item.image
+        ? `<img src="${item.image}" alt="${item.title}">`
+        : `<div class="modal-placeholder">No image added yet.<br>Replace the empty image field in the JavaScript data with your own file path.</div>`;
+
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function shutModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    searchInput.addEventListener("input", (event) => {
+      searchTerm = event.target.value.trim();
+      renderGallery();
+    });
+
+    closeModal.addEventListener("click", shutModal);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) shutModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") shutModal();
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    buildFilters();
+    renderGallery();
+  </script>
+</body>
+</html>
